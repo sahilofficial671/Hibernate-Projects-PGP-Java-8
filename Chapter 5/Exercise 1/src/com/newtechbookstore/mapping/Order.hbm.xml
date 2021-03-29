@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.newtechbookstore.model.Order" table="orders">
+        <id name="id" type="integer">
+            <generator class="increment" />
+        </id>
+		<property name="bookId" type="int"/>
+		<many-to-one name="book" class="com.newtechbookstore.model.Book" column="bookId" cascade="all" not-null="true" insert="false" update="false"/>
+		<property name="customerId" type="int"/>
+		<many-to-one name="customer" class="com.newtechbookstore.model.Customer" column="customerId" cascade="all" not-null="true" insert="false" update="false"/>
+		<property name="quantity" type="int"/>
+		<property name="shippingAddress" type="string" length="200"/>
+		<property name="orderedAt" type="java.sql.Timestamp"/>
+    </class>
+</hibernate-mapping>

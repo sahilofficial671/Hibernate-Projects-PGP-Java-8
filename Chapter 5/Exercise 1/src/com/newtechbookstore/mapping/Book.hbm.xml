@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.newtechbookstore.model.Book" table="books" lazy="false">
+        <id name="id" type="int">
+            <column name="id" unique="true"/>
+            <generator class="increment" />
+        </id>
+        <property name="name" type="string" length="100" />
+        <property name="edition" type="string" length="100" />
+        <property name="category" type="string" length="50" />
+        <property name="publisher" type="string" length="100" />
+        <property name="publishingYear" type="int" />
+		<property name="price" type="int" />
+        <property name="quantity" type="int" />
+		<many-to-one name="author" class="com.newtechbookstore.model.Author" column="authorId" not-null="true" cascade="all" unique="true" />
+    </class>
+</hibernate-mapping>
