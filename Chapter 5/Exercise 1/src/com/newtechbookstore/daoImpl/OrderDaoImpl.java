@@ -64,47 +64,27 @@ public class OrderDaoImpl implements OrderDao {
 
 	@Override
 	public Boolean add(Order order) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx  = session.beginTransaction();
-		
-		Book book = bookDaoImpl.getBookById(order.getBookId());
-		book.setQuantity(book.getQuantity() - order.getQuantity());
-		
-		session.save(order);
-		session.update(book);
-		
-		tx.commit();
-		session.close();
-		return true;
-		
-//		Transaction tx = null;
-//		Session session = HibernateUtil.getSessionFactory().openSession();
-//		
-//		try {
-//			tx = session.beginTransaction();
-//			
-//			Book book = bookDaoImpl.getBookById(order.getBookId());
-//			book.setQuantity(book.getQuantity() - order.getQuantity());
-//			
-//			session.save(order);
-//			session.update(book);
-//			
-//			tx.commit();
-//			session.close();
-//			System.out.println(order);
-//			return true;
-////			return bookDaoImpl.decreaseBookQuantityBy(bookDaoImpl.getBookById(order.getBookId()), order.getQuantity());
-//		}catch (Exception e) {
-//			if(tx != null) {
-//				tx.rollback();
-//			}
-//			if(session != null) {
-//				session.close();
-//			}
-//			e.printStackTrace();
-//			System.out.println("Error from: " + e.getClass().getSimpleName() + ", Message: "+ e.getMessage());
-//			return false;
-//		}
+		Transaction tx = null;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			tx = session.beginTransaction();			
+			session.save(order);		
+			
+			// Decrease Book Quantity
+			Book book = (Book) session.load(Book.class, order.getBookId());
+			book.setQuantity(book.getQuantity() - order.getQuantity());
+			session.update(book);
+			tx.commit();
+			session.close();
+			return true;
+		}catch (Exception e) {
+			if(tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+			System.out.println("Error from: " + e.getClass().getSimpleName() + ", Message: "+ e.getMessage());
+			return false;
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

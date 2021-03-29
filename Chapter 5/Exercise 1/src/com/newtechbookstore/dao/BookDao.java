@@ -11,5 +11,4 @@ public interface BookDao {
 	Boolean add(Book book);
 	Book getBookById(Integer bookId);
 	List<Book> getBooks();
-	Boolean decreaseBookQuantityBy(Book book, Integer quantity);
 }

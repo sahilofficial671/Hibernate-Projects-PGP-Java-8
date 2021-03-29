@@ -138,31 +138,4 @@ public class BookDaoImpl implements BookDao{
 			return null;
 		}
 	}
-
-	@Override
-	public Boolean decreaseBookQuantityBy(Book book, Integer quantity) {		
-		Transaction t = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			System.out.println(book);
-			t = session.beginTransaction();
-			book.setQuantity(book.getQuantity() - quantity);
-			System.out.println(book);
-			session.saveOrUpdate(book);
-			t.commit();
-			session.close();
-			return true;
-		}catch (Exception e) {
-			if(t != null) {
-				t.rollback();
-			}
-			if(session != null) {
-				session.close();
-			}
-			e.printStackTrace();
-			String message = "Error From: "+ this.getClass().getName() +"."+Thread.currentThread().getStackTrace()[1].getMethodName()+"(), Error Class: " + e.getClass().getSimpleName() + ", Message: "+ e.getMessage();
-			System.out.println(message);
-			return false;
-		}
-	}
 }
