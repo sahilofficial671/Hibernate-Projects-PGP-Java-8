@@ -32,29 +32,8 @@ public class AppServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-//		SessionFactory sessionfactory;
-//		Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
-//		sessionfactory = configuration.buildSessionFactory();
-//		Session session = sessionfactory.openSession();
-//
-//		Transaction t = session.beginTransaction();
-//		Customer customer = new Customer();
-//		customer.setUserName("ravi");
-//		customer.setFirstName("Ravi Malik");
-//		customer.setEmail("ravi@gmail.com");
-//		customer.setPassword("sahil1234");
-//
-//		Address address1 = new Address();
-//		address1.setLine_1("G-21,Lohia nagar");
-//		customer.setAddress(address1);
-//		address1.setCustomer(customer);
-//		session.persist(customer);
-//		t.commit();
-//		session.close();
-//		System.out.println("success");
 //		
-//		response.sendRedirect("customer/register");
+		response.sendRedirect("customer/register");
 	}
 
 	/**
